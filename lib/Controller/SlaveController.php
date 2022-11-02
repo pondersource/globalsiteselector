@@ -142,6 +142,7 @@ class SlaveController extends OCSController {
 
 		try {
 			list($uid, $password, $options) = $this->decodeJwt($jwt);
+			
 			$target = $options['target'];
 			if (is_array($options) && isset($options['backend']) && $options['backend'] === 'saml') {
 				$this->autoprovisionIfNeeded($uid, $options);
@@ -174,6 +175,12 @@ class SlaveController extends OCSController {
 		}
 
 		$this->userSession->createSessionToken($this->request, $uid, $uid, null, IToken::REMEMBER);
+		error_log("Got options!");
+		error_log(var_export($options, true));
+		$this->session->set('gss.samlUserData', $options);
+		error_log("Done setting");
+		error_log(var_export($this->session->get('gss.samlUserData'), true));
+
 		$home = $this->urlGenerator->getAbsoluteURL($target);
 		$this->slaveService->updateUserById($uid);
 

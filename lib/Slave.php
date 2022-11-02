@@ -87,6 +87,8 @@ class Slave {
 		$this->lookupServer = $gss->getLookupServerUrl();
 		$this->operationMode = $gss->getMode();
 		$this->authKey = $gss->getJwtKey();
+		error_log("Slave get JWT:");
+		error_log(var_export($this->authKey, true));
 		$this->lookupServer = rtrim($this->lookupServer, '/');
 		$this->lookupServer .= '/gs/users';
 		$this->gss = $gss;
