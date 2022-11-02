@@ -134,8 +134,13 @@ class Master {
 			$backend instanceof \OCA\User_SAML\UserBackend
 		) {
 			$this->logger->debug('handleLoginRequest: backend is SAML');
-      error_log(var_export($this->session->get('user_saml.samlUserData'), true));
-			// process.exit(1);
+			if (!empty($this->session->get('user_saml.samlUserData'))) {
+				$attr = $this->session->get('user_saml.samlUserData');
+				$options["isSamlAuthenticated"] = true;
+				$options["displayName"] = $attr["display_name"][0];
+				$options["username"] = $attr["username"][0];
+				$options["mfaVerified"] = $attr["mfa_verified"][0];
+			}
 			$options['backend'] = 'saml';
 			$options['userData'] = $backend->getUserData();
 			$uid = $options['userData']['formatted']['uid'];
