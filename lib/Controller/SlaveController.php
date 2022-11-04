@@ -142,6 +142,7 @@ class SlaveController extends OCSController {
 
 		try {
 			list($uid, $password, $options) = $this->decodeJwt($jwt);
+			
 			$target = $options['target'];
 			if (is_array($options) && isset($options['backend']) && $options['backend'] === 'saml') {
 				$this->autoprovisionIfNeeded($uid, $options);
@@ -155,6 +156,8 @@ class SlaveController extends OCSController {
 					$this->logger->logException($e, ['app' => $this->appName]);
 					throw $e;
 				}
+				
+				$this->session->set('globalScale.UserData', $options);
 				$this->session->set('globalScale.uid', $uid);
 				$result = true;
 			} else {
