@@ -142,7 +142,6 @@ class SlaveController extends OCSController {
 
 		try {
 			list($uid, $password, $options) = $this->decodeJwt($jwt);
-			
 			$target = $options['target'];
 			if (is_array($options) && isset($options['backend']) && $options['backend'] === 'saml') {
 				$this->autoprovisionIfNeeded($uid, $options);
