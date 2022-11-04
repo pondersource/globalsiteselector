@@ -30,7 +30,6 @@ use OCP\Http\Client\IClientService;
 use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IRequest;
-use OCP\ISession;
 use OCP\Security\ICrypto;
 
 /**
@@ -65,10 +64,6 @@ class Master {
 	/** @var IAppContainer */
 	private $container;
 
-	/** @var ISession */
-	private ISession $session;
-
-
 	/**
 	 * Master constructor.
 	 *
@@ -88,7 +83,6 @@ class Master {
 								IClientService $clientService,
 								IConfig $config,
 								ILogger $logger,
-								ISession $session,
 								IAppContainer $container
 	) {
 		$this->gss = $gss;
@@ -99,7 +93,6 @@ class Master {
 		$this->config = $config;
 		$this->logger = $logger;
 		$this->container = $container;
-		$this->session = $session;
 	}
 
 
@@ -134,7 +127,7 @@ class Master {
 			$backend instanceof \OCA\User_SAML\UserBackend
 		) {
 			$this->logger->debug('handleLoginRequest: backend is SAML');
-		
+
 			$options['backend'] = 'saml';
 			$options['userData'] = $backend->getUserData();
 			$uid = $options['userData']['formatted']['uid'];
