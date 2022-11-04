@@ -156,7 +156,6 @@ class SlaveController extends OCSController {
 					$this->logger->logException($e, ['app' => $this->appName]);
 					throw $e;
 				}
-				
 				$this->session->set('globalScale.UserData', $options);
 				$this->session->set('globalScale.uid', $uid);
 				$result = true;
