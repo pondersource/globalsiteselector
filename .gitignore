@@ -53,6 +53,5 @@ nbproject
 /config/config-autotest-backup.php
 /config/autoconfig.php
 clover.xml
-/vendor
 
 /.php_cs.cache
