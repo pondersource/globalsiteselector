@@ -127,7 +127,7 @@ class Master {
 			$backend instanceof \OCA\User_SAML\UserBackend
 		) {
 			$this->logger->debug('handleLoginRequest: backend is SAML');
-		
+					
 			$options['backend'] = 'saml';
 			$options['userData'] = $backend->getUserData();
 			$uid = $options['userData']['formatted']['uid'];
